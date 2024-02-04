@@ -41,14 +41,15 @@ public class AddDeadlineCommand extends Command {
      * @param tasks   The task list.
      * @param ui      The user interface.
      * @param storage The storage handler.
+     * @return
      * @throws BobException If an error occurs during execution (e.g., saving the task list).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BobException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BobException {
         Task task = new Deadline(description, by);
         TaskList.add(task); // Assuming TaskList.add is a static method
         storage.save(tasks);
-        ui.showLine();
-        System.out.println("You better remember to do it or I'll spank you"); // Consider a more professional message
+        Ui.appendResponse("You better remember to do it or I'll spank you"); // Consider a more professional message
+        return null;
     }
 }

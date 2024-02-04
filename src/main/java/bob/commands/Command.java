@@ -16,9 +16,10 @@ public abstract class Command {
      * @param tasks   The task list.
      * @param ui      The user interface.
      * @param storage The storage handler.
+     * @return
      * @throws BobException If an error occurs during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws BobException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws BobException;
 
     /**
      * Checks if the command is an exit command.

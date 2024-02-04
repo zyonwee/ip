@@ -34,16 +34,17 @@ public class DeleteCommand extends Command {
      * @param tasks   The task list.
      * @param ui      The user interface.
      * @param storage The storage handler.
+     * @return
      * @throws BobException If the task number is out of range.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BobException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BobException {
         if (index < 0 || index >= tasks.size()) {
             throw new BobException("Task does not exist. Please provide a valid task number.");
         }
         Task task = tasks.delete(index);
         storage.save(tasks);
-        ui.showLine();
-        System.out.println("Fine... stop " + task.description + " then..."); // Consider a more professional message
+        Ui.appendResponse("Fine... stop " + task.description + " then..."); // Consider a more professional message
+        return null;
     }
 }
