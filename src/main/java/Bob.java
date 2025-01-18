@@ -10,7 +10,7 @@ public class Bob {
             "What can I do for you? \n" ; // Greeting Message
     static String exitMsg =  "Bye. Please don't trouble me again!\n"; // Exit Message
     static boolean listenMode = true; // Check if Bot should continue to listen for commands
-    static List<String> commandList = new ArrayList<String>(); // List of user inputs
+    static List<Task> taskList = new ArrayList<Task>(); // List of user inputs
 
     /**
      * OnStart will display greeting message
@@ -50,8 +50,9 @@ public class Bob {
      * Echoes the User's Message
      */
     public static void echoMsg(String command){
+        Task newTask = new Task(command);
         // Add the command to the list of Commands
-        commandList.add(command);
+        taskList.add(newTask);
         // Echo
         System.out.println("Are you sure you want me to " + command + "? " +
                 "\nWhy can't you do it yourself? :3\n");
@@ -59,13 +60,14 @@ public class Bob {
 
 
     /**
-     * List our the history of User's Commands
+     * List our the history of User's Commands in this manner:
+     * <Int Index>. [<Task Status>] <Task Description>
      */
     public static void listCommands(){
         System.out.println("Woah woah woah, \nlet me get this straight... You want me to :\n");
         int index = 0; // Index of Command
-        for (String s : commandList) {
-            System.out.println(Integer.toString(index) + ". " + s);
+        for (Task s : taskList) {
+            System.out.println(Integer.toString(index) + ". ["+ s.getStatusIcon()+ "] " + s.description);
             index += 1;
         }
         System.out.println("\nI think you're asking for way to much >.<\n");
