@@ -52,6 +52,16 @@ public class Bob {
                  }
 
             }
+            else if (command.startsWith("unmark ")){
+                // Try and Catch for invalid Task Number
+                try {
+                    int taskNumber = Integer.parseInt(command.substring(7));
+                    unmarkTaskAsDone(taskNumber);
+
+                } catch(Exception e) {
+                    System.out.println("You've gotta pick a valid task!");
+                }
+            }
             // Echos Command
             else {
                 echoMsg(command);
@@ -96,6 +106,17 @@ public class Bob {
         Task task = taskList.get(taskIndex).markAsDone();
         taskList.set(taskIndex , task);
         System.out.println("Took you long enough to complete " + task.description + " \n");
+    }
+
+    /**
+     * Unmark Task as done
+     */
+    public static void unmarkTaskAsDone(int taskNumber){
+        // User would see that taskNumber starts from index 1
+        int taskIndex = taskNumber - 1;
+        Task task = taskList.get(taskIndex).unmarkAsDone();
+        taskList.set(taskIndex , task);
+        System.out.println("You lied! You have not started to " + task.description + " \n");
     }
 
 
