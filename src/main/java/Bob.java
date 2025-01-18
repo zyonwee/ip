@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Bob {
@@ -8,35 +10,47 @@ public class Bob {
             "What can I do for you? \n" ; // Greeting Message
     static String exitMsg =  "Bye. Please don't trouble me again!\n"; // Exit Message
     static boolean echoMode = true; // Check if Bot should continue to echo
+    static List<String> commandList = new ArrayList<String>(); // List of user inputs
 
     /**
      * OnStart will display greeting message
-     * Thereafter, echo user's input
-     * If user input bye, display exit message
+     * On end display exit message
      * @param args
      */
     public static void main(String[] args) {
         System.out.println(greetMsg);
-        while (echoMode) {
-            echoMode = echoMsg();
-        }
+        handleCommand();
         System.out.println(exitMsg);
+    }
+
+    /**
+     * Handles the user input
+     */
+    public static void handleCommand(){
+        while (echoMode) {
+            Scanner sc = new Scanner(System.in);  // Create a Scanner object
+            String command = sc.nextLine();  // Read user input
+            // On exit command
+            if (command.equals("bye")){
+                echoMode = false;
+            } else {
+
+                echoMsg(command);
+            }
+
+
+        }
     }
 
     /**
      * Echoes the User's Message
      * @return boolean indicates if bot should exit echoMode
      */
-    public static boolean echoMsg(){
-        Scanner sc = new Scanner(System.in);  // Create a Scanner object
-        String echo = sc.nextLine();  // Read user
-        if (echo.equals("bye")){
-            return  false;
-        }
+    public static void echoMsg(String echo){
+        // Echo
         System.out.println("Are you sure you want me to " + echo + "? " +
                 "\nWhy can't you do it yourself? :3");
-        return true;
-    }
+     }
 
 
 }
