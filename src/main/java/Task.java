@@ -14,14 +14,16 @@ public class Task {
     /**
      * Sets a task as done
      */
-    public void markAsDone(){
+    public Task markAsDone(){
         this.isDone = true;
+        return  this;
     }
 
     /**
      * Sets a task as not done
      */
-    public void unmarkAsDone(){
+    public Task unmarkAsDone(){
         this.isDone = false;
+        return this;
     }
 }
