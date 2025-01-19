@@ -63,7 +63,27 @@ public class Bob {
             }
             // ToDo command
             else if (command.startsWith("todo ")) {
-                toDo(command.substring(5));
+                addToDo(command.substring(5));
+            }
+            // Deadline command
+            else if (command.startsWith("deadline ")) {
+                try {
+                    // Remove the header "deadline "
+                    String cleanString = command.substring(9);
+
+                    // Find the start index of "/by"
+                    int byIndex = cleanString.indexOf("/by");
+
+                    // Extract "description"
+                    String description = cleanString.substring(0, byIndex);
+
+                    // Extract "by"
+                    String byString = cleanString.substring(byIndex + 3); // +3 to skip "/by "
+
+                    addDeadline(description, byString);
+                } catch (Exception e) {
+                    System.out.println("Did you forget your '/by' command? So un-attentive!");
+                }
             }
             // Echos Command
             else {
@@ -126,9 +146,22 @@ public class Bob {
      * Adds Todo task to TaskList
      * @param desc of ToDo Task
      */
-    public static void toDo(String desc) {
+    public static void addToDo(String desc) {
         Task task = new ToDo(desc);
         taskList.add(task);
+        System.out.println("No deadline? I guess we are never doing this then...");
+
+    }
+
+    /**
+     * Adds Deadline task to TaskList
+     * @param desc of ToDo Task
+     * @param by any string
+     */
+    public static void addDeadline(String desc, String by) {
+        Task task = new Deadline(desc, by);
+        taskList.add(task);
+        System.out.println("You better remember to do it or I'll spank you");
     }
 
 
