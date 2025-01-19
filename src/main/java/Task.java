@@ -26,4 +26,13 @@ public class Task {
         this.isDone = false;
         return this;
     }
+
+    /**
+     *
+     * @return String of '[Status] description'
+     */
+    @Override
+    public String toString() {
+        return this.description;
+    }
 }

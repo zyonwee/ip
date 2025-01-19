@@ -10,12 +10,11 @@ public class Bob {
             "What can I do for you? \n" ; // Greeting Message
     static String exitMsg =  "Bye. Please don't trouble me again!\n"; // Exit Message
     static boolean listenMode = true; // Check if Bot should continue to listen for commands
-    static List<Task> taskList = new ArrayList<Task>(); // List of user inputs
+    static List<Task> taskList = new ArrayList<>(); // List of user inputs
 
     /**
      * OnStart will display greeting message
      * On end display exit message
-     * @param args
      */
     public static void main(String[] args) {
         System.out.println(greetMsg);
@@ -62,6 +61,10 @@ public class Bob {
                     System.out.println("You've gotta pick a valid task!");
                 }
             }
+            // ToDo command
+            else if (command.startsWith("todo ")) {
+                toDo(command.substring(5));
+            }
             // Echos Command
             else {
                 echoMsg(command);
@@ -91,7 +94,7 @@ public class Bob {
         System.out.println("Woah woah woah, \nlet me get this straight... You want me to :\n");
         int index = 1; // Index of Command
         for (Task s : taskList) {
-            System.out.println(Integer.toString(index) + ". ["+ s.getStatusIcon()+ "] " + s.description);
+            System.out.println(index + ". " + s.toString());
             index += 1;
         }
         System.out.println("\nI think you're asking for way to much >.<\n");
@@ -117,6 +120,15 @@ public class Bob {
         Task task = taskList.get(taskIndex).unmarkAsDone();
         taskList.set(taskIndex , task);
         System.out.println("You lied! You have not started to " + task.description + " \n");
+    }
+
+    /**
+     * Adds Todo task to TaskList
+     * @param desc of ToDo Task
+     */
+    public static void toDo(String desc) {
+        Task task = new ToDo(desc);
+        taskList.add(task);
     }
 
 
