@@ -85,6 +85,31 @@ public class Bob {
                     System.out.println("Did you forget your '/by' command? So un-attentive!");
                 }
             }
+            // event command
+            else if (command.startsWith("event ")) {
+                try {
+                    // Remove the header "deadline "
+                    String cleanString = command.substring(6);
+
+                    // Find the start index of "/from" and "/to"
+                    int fromIndex = cleanString.indexOf("/from");
+                    int toIndex = cleanString.indexOf("/to");
+
+                    // Extract "description"
+                    String description = cleanString.substring(0, fromIndex);
+
+                    // Extract "from"
+                    String eventFrom = cleanString.substring(fromIndex + 5, toIndex); // +3 to skip "/by "
+
+                    // Extract "to"
+                    String eventTo = cleanString.substring(toIndex + 3);
+
+                    addEvent(description, eventFrom, eventTo);
+                } catch (Exception e) {
+                    System.out.println("Did you forget your '/from' and '/to' command? So un-attentive!\n " +
+                            "Ps. the order matters!");
+                }
+            }
             // Echos Command
             else {
                 echoMsg(command);
@@ -162,6 +187,18 @@ public class Bob {
         Task task = new Deadline(desc, by);
         taskList.add(task);
         System.out.println("You better remember to do it or I'll spank you");
+    }
+
+    /**
+     * Adds Event task to TaskList
+     * @param desc of ToDo Task
+     * @param from any string
+     * @param to any string
+     */
+    public static void addEvent(String desc, String from, String to) {
+        Task task = new Event(desc, from, to);
+        taskList.add(task);
+        System.out.println("Am I invited? Nah... no one cares bout this damsel");
     }
 
 
