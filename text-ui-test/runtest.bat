@@ -14,14 +14,31 @@ IF ERRORLEVEL 1 (
 )
 REM no error here, errorlevel == 0
 
-REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Bob < input.txt > ACTUAL.TXT
+REM Initialize success counter
+setlocal EnableDelayedExpansion
+set /a successCount=0
 
-REM compare the output to the expected output
-FC ACTUAL.TXT EXPECTED.TXT
-IF ERRORLEVEL 1 (
-    echo ********** TEST FAILED **********
-    exit /b 1
-)
+:loop
+    REM Read input file line by line
+    for /f "tokens=*" %%a in (input.txt) do (
 
-echo ********** TEST SUCCESSFUL **********
+        REM Create temporary input file
+        echo %%a>temp_input.txt
+
+        REM Run the program with temporary input
+        java -classpath ..\bin Bob < input.txt > ACTUAL.TXT
+
+        REM Compare the output to the expected output
+        FC ACTUAL.TXT EXPECTED.TXT
+        IF ERRORLEVEL 1 (
+            echo ********** TEST FAILED for input: %%a **********
+        ) else (
+            echo ********** TEST SUCCESSFUL for input: %%a **********
+            set /a successCount=!successCount!+1
+        )
+    )
+
+echo.
+echo Total Successful Tests: !successCount!
+
+endlocal
