@@ -7,7 +7,7 @@ public class Bob {
 
     static String fullName = "Bob the Princess"; // Name of Bot
     static String greetMsg = "Hello! I'm " + fullName + "\n" +
-            "What can I do for you? \n" ; // Greeting Message
+            "What can I do for you?\n" ; // Greeting Message
     static String exitMsg =  "Bye. Please don't trouble me again!\n"; // Exit Message
     static boolean listenMode = true; // Check if Bot should continue to listen for commands
     static List<Task> taskList = new ArrayList<>(); // List of user inputs
@@ -26,8 +26,9 @@ public class Bob {
      * Handles the user input
      */
     public static void handleCommand(){
-        while (listenMode) {
-            Scanner sc = new Scanner(System.in);  // Create a Scanner object
+
+        Scanner sc = new Scanner(System.in);  // Create a Scanner object
+        while (listenMode && sc.hasNextLine()) {
             String command = sc.nextLine();  // Read user input
 
             // On exit command
@@ -75,7 +76,7 @@ public class Bob {
                     int byIndex = cleanString.indexOf("/by");
 
                     // Extract "description"
-                    String description = cleanString.substring(0, byIndex);
+                    String description = cleanString.substring(0, byIndex-1);
 
                     // Extract "by"
                     String byString = cleanString.substring(byIndex + 3); // +3 to skip "/by "
@@ -96,17 +97,17 @@ public class Bob {
                     int toIndex = cleanString.indexOf("/to");
 
                     // Extract "description"
-                    String description = cleanString.substring(0, fromIndex);
+                    String description = cleanString.substring(0, fromIndex-1);
 
                     // Extract "from"
-                    String eventFrom = cleanString.substring(fromIndex + 5, toIndex); // +3 to skip "/by "
+                    String eventFrom = cleanString.substring(fromIndex + 5, toIndex-1); // +3 to skip "/by "
 
                     // Extract "to"
                     String eventTo = cleanString.substring(toIndex + 3);
 
                     addEvent(description, eventFrom, eventTo);
                 } catch (Exception e) {
-                    System.out.println("Did you forget your '/from' and '/to' command? So un-attentive!\n " +
+                    System.out.println("Did you forget your '/from' and '/to' command? So un-attentive!\n" +
                             "Ps. the order matters!");
                 }
             }
@@ -136,7 +137,7 @@ public class Bob {
      * <Int Index>. [<Task Status>] <Task Description>
      */
     public static void listCommands(){
-        System.out.println("Woah woah woah, \nlet me get this straight... You want me to :\n");
+        System.out.println("Woah woah woah,\nlet me get this straight... You want me to :\n");
         int index = 1; // Index of Command
         for (Task s : taskList) {
             System.out.println(index + ". " + s.toString());
@@ -153,7 +154,7 @@ public class Bob {
         int taskIndex = taskNumber - 1;
         Task task = taskList.get(taskIndex).markAsDone();
         taskList.set(taskIndex , task);
-        System.out.println("Took you long enough to complete " + task.description + " \n");
+        System.out.println("Took you long enough to complete " + task.description + "\n");
     }
 
     /**
@@ -164,7 +165,7 @@ public class Bob {
         int taskIndex = taskNumber - 1;
         Task task = taskList.get(taskIndex).unmarkAsDone();
         taskList.set(taskIndex , task);
-        System.out.println("You lied! You have not started to " + task.description + " \n");
+        System.out.println("You lied! You have not started to " + task.description + "\n");
     }
 
     /**
