@@ -124,6 +124,21 @@ public class Bob {
                                 "Ps. the order matters!");
                     }
                 }
+                // Delete Command
+                else if (command.startsWith("delete ")) {
+                    // Try and Catch for invalid Task Number
+                    try {
+                        int taskNumber = Integer.parseInt(command.substring(7));
+                        deleteTask(taskNumber);
+
+                    } catch (NumberFormatException e) {
+                        throw new BobException("Invalid task number. Please enter a valid integer.");
+                    } catch (IndexOutOfBoundsException e) {
+                        throw new BobException("Task does not exist. Please provide a valid task number.");
+                    } catch (Exception e) {
+                        throw new BobException("An unexpected error occurred while processing the task.");
+                    }
+                }
                 // Echos Command
                 else {
                     throw  new BobException("What are you trying to say? You speak alien? Try English...");
@@ -152,7 +167,10 @@ public class Bob {
      * List our the history of User's Commands in this manner:
      * <Int Index>. [<Task Status>] <Task Description>
      */
-    public static void listCommands(){
+    public static void listCommands() throws BobException {
+        if (taskList.isEmpty()){
+            throw new BobException("You didn't tell me what to do yet");
+        }
         System.out.println("Woah woah woah,\nlet me get this straight... You want me to :\n");
         int index = 1; // Index of Command
         for (Task s : taskList) {
@@ -216,6 +234,17 @@ public class Bob {
         Task task = new Event(desc, from, to);
         taskList.add(task);
         System.out.println("Am I invited? Nah... no one cares bout this damsel");
+    }
+
+    /**
+     * Removes a task from the list
+     * @param taskNumber to remove (User's PoV)
+     */
+    public static void deleteTask(int taskNumber) {
+        int taskIndex = taskNumber - 1;
+        System.out.println("Fine... stop " + taskList.get(taskIndex).description + " then...");
+
+        taskList.remove(taskIndex);
     }
 
 

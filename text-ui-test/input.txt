@@ -1,3 +1,4 @@
+list
 todo cry
 deadline laugh /by Tuesday
 event die /from Monday /to Tuesday
@@ -8,3 +9,5 @@ list
 unmark 2
 BobException Invalid Input
 mark BobException Invalid Input
+delete 2
+list
