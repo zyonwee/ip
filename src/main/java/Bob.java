@@ -25,128 +25,104 @@ public class Bob {
     /**
      * Handles the user input
      */
-    public static void handleCommand(){
-
-
+    public static void handleCommand() {
         Scanner sc = new Scanner(System.in);  // Create a Scanner object
         while (listenMode && sc.hasNextLine()) {
             try {
                 String command = sc.nextLine();  // Read user input
 
-                // On exit command
-                if (command.equals("bye")) {
-                    listenMode = false;
+                // Use CommandType.fromString to determine the command type
+                CommandType type = CommandType.fromString(command);
+
+                switch (type) {
+                    case EXIT:
+                        listenMode = false;
+                        break;
+                    case LIST:
+                        listCommands();
+                        break;
+                    case MARK:
+                        // Handle mark command
+                        try {
+                            int taskNumber = Integer.parseInt(command.substring(5));
+                            markTaskAsDone(taskNumber);
+                        } catch (NumberFormatException e) {
+                            throw new BobException("Invalid task number. Please enter a valid integer.");
+                        } catch (IndexOutOfBoundsException e) {
+                            throw new BobException("Task does not exist. Please provide a valid task number.");
+                        } catch (Exception e) {
+                            throw new BobException("An unexpected error occurred while processing the task.");
+                        }
+                        break;
+                    case UNMARK:
+                        // Handle unmark command (similar to MARK)
+                        try {
+                            int taskNumber = Integer.parseInt(command.substring(7));
+                            unmarkTaskAsDone(taskNumber);
+                        } catch (NumberFormatException e) {
+                            throw new BobException("Invalid task number. Please enter a valid integer.");
+                        } catch (IndexOutOfBoundsException e) {
+                            throw new BobException("Task does not exist. Please provide a valid task number.");
+                        } catch (Exception e) {
+                            throw new BobException("An unexpected error occurred while processing the task.");
+                        }
+                        break;
+                    case TODO:
+                        // Handle todo command
+                        String desc = command.substring(5);
+                        if (desc.isEmpty()) {
+                            throw new BobException("Please write a valid description");
+                        }
+                        addToDo(desc);
+                        break;
+                    case DEADLINE:
+                        // Handle deadline command
+                        try {
+                            String cleanString = command.substring(9);
+                            int byIndex = cleanString.indexOf("/by");
+                            String description = cleanString.substring(0, byIndex - 1);
+                            String byString = cleanString.substring(byIndex + 3);
+                            addDeadline(description, byString);
+                        } catch (Exception e) {
+                            System.out.println("Did you forget your '/by' command? So un-attentive!");
+                        }
+                        break;
+                    case EVENT:
+                        // Handle event command
+                        try {
+                            String cleanString = command.substring(6);
+                            int fromIndex = cleanString.indexOf("/from");
+                            int toIndex = cleanString.indexOf("/to");
+                            String description = cleanString.substring(0, fromIndex - 1);
+                            String eventFrom = cleanString.substring(fromIndex + 5, toIndex - 1);
+                            String eventTo = cleanString.substring(toIndex + 3);
+                            addEvent(description, eventFrom, eventTo);
+                        } catch (Exception e) {
+                            System.out.println("Did you forget your '/from' and '/to' command? So un-attentive!\n" +
+                                    "Ps. the order matters!");
+                        }
+                        break;
+                    case DELETE:
+                        // Handle delete command (similar to MARK)
+                        try {
+                            int taskNumber = Integer.parseInt(command.substring(7));
+                            deleteTask(taskNumber);
+                        } catch (NumberFormatException e) {
+                            throw new BobException("Invalid task number. Please enter a valid integer.");
+                        } catch (IndexOutOfBoundsException e) {
+                            throw new BobException("Task does not exist. Please provide a valid task number.");
+                        } catch (Exception e) {
+                            throw new BobException("An unexpected error occurred while processing the task.");
+                        }
+                        break;
+                    case INVALID:
+                        throw new BobException("What are you trying to say? You speak alien? Try English...");
+                    default:
+                        throw new AssertionError("Unknown command type");
                 }
-                // On list command
-                else if (command.equals("list")) {
-                    listCommands();
-                }
-                // If it starts with "mark "
-                else if (command.startsWith("mark ")) {
-
-                    // Try and Catch for invalid Task Number
-                    try {
-                        int taskNumber = Integer.parseInt(command.substring(5));
-                        markTaskAsDone(taskNumber);
-
-                    } catch (NumberFormatException e) {
-                        throw new BobException("Invalid task number. Please enter a valid integer.");
-                    } catch (IndexOutOfBoundsException e) {
-                        throw new BobException("Task does not exist. Please provide a valid task number.");
-                    } catch (Exception e) {
-                        throw new BobException("An unexpected error occurred while processing the task.");
-                    }
-
-                } else if (command.startsWith("unmark ")) {
-                    // Try and Catch for invalid Task Number
-                    try {
-                        int taskNumber = Integer.parseInt(command.substring(7));
-                        unmarkTaskAsDone(taskNumber);
-
-                    } catch (NumberFormatException e) {
-                        throw new BobException("Invalid task number. Please enter a valid integer.");
-                    } catch (IndexOutOfBoundsException e) {
-                        throw new BobException("Task does not exist. Please provide a valid task number.");
-                    } catch (Exception e) {
-                        throw new BobException("An unexpected error occurred while processing the task.");
-                    }
-                }
-                // ToDo command
-                else if (command.startsWith("todo ")) {
-                    String desc = command.substring(5);
-                    if (desc.isEmpty()){
-                        throw new BobException("Please write a valid description");
-                    }
-                    addToDo(desc);
-                }
-                // Deadline command
-                else if (command.startsWith("deadline ")) {
-                    try {
-                        // Remove the header "deadline "
-                        String cleanString = command.substring(9);
-
-                        // Find the start index of "/by"
-                        int byIndex = cleanString.indexOf("/by");
-
-                        // Extract "description"
-                        String description = cleanString.substring(0, byIndex - 1);
-
-                        // Extract "by"
-                        String byString = cleanString.substring(byIndex + 3); // +3 to skip "/by "
-
-                        addDeadline(description, byString);
-                    } catch (Exception e) {
-                        System.out.println("Did you forget your '/by' command? So un-attentive!");
-                    }
-                }
-                // event command
-                else if (command.startsWith("event ")) {
-                    try {
-                        // Remove the header "deadline "
-                        String cleanString = command.substring(6);
-
-                        // Find the start index of "/from" and "/to"
-                        int fromIndex = cleanString.indexOf("/from");
-                        int toIndex = cleanString.indexOf("/to");
-
-                        // Extract "description"
-                        String description = cleanString.substring(0, fromIndex - 1);
-
-                        // Extract "from"
-                        String eventFrom = cleanString.substring(fromIndex + 5, toIndex - 1); // +3 to skip "/by "
-
-                        // Extract "to"
-                        String eventTo = cleanString.substring(toIndex + 3);
-
-                        addEvent(description, eventFrom, eventTo);
-                    } catch (Exception e) {
-                        System.out.println("Did you forget your '/from' and '/to' command? So un-attentive!\n" +
-                                "Ps. the order matters!");
-                    }
-                }
-                // Delete Command
-                else if (command.startsWith("delete ")) {
-                    // Try and Catch for invalid Task Number
-                    try {
-                        int taskNumber = Integer.parseInt(command.substring(7));
-                        deleteTask(taskNumber);
-
-                    } catch (NumberFormatException e) {
-                        throw new BobException("Invalid task number. Please enter a valid integer.");
-                    } catch (IndexOutOfBoundsException e) {
-                        throw new BobException("Task does not exist. Please provide a valid task number.");
-                    } catch (Exception e) {
-                        throw new BobException("An unexpected error occurred while processing the task.");
-                    }
-                }
-                // Echos Command
-                else {
-                    throw  new BobException("What are you trying to say? You speak alien? Try English...");
-                }
-            } catch (BobException e){
+            } catch (BobException e) {
                 System.out.println(e.toString());
             }
-
         }
     }
 
