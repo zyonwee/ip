@@ -28,5 +28,7 @@ I think you're asking for way to much >.<
 
 You lied! You have not started to laugh
 
+What are you trying to say? You speak alien? Try English...
+Invalid task number. Please enter a valid integer.
 Bye. Please don't trouble me again!
 

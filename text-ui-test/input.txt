@@ -6,3 +6,5 @@ mark 2
 mark 3
 list
 unmark 2
+BobException Invalid Input
+mark BobException Invalid Input

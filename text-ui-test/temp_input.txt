@@ -1,1 +1,1 @@
-unmark 2
+mark BobException Invalid Input
