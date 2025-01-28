@@ -41,7 +41,7 @@ public class AddDeadlineCommand extends Command {
      * @param tasks   The task list.
      * @param ui      The user interface.
      * @param storage The storage handler.
-     * @return
+     * @return        null. This command doesn't return a string to be displayed.  The UI handles output.
      * @throws BobException If an error occurs during execution (e.g., saving the task list).
      */
     @Override

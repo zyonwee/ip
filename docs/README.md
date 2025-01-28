@@ -1,5 +1,6 @@
 # Bob: Your Personal Task Manager 🚀
-![alt text](https://github.com/zyonwee/iP/blob/master/src/main/resources/images/user.png?raw=true)
+![alt text](https://github.com/zyonwee/iP/blob/master/src/main/resources/images/user.png?raw=true)  
+
 Bob is a lightweight, text-based task manager designed to help you organize your tasks efficiently. Inspired by the quote:
 
 > “Your mind is for having ideas, not holding them.” – [David Allen](https://gettingthingsdone.com/)
@@ -12,7 +13,7 @@ Bob frees your mind from the burden of remembering tasks. It’s:
 
 ## How to Get Started
 
-1.  Download Bob from [here](https://github.com/zyonwee/ip).
+1.  Download Bob from [here](https://github.com/zyonwee/ip/releases/download/v0.2/bob.jar).
 2.  Double-click the executable file.
 3.  Add your tasks using simple commands.
 4.  Let Bob manage your tasks for you 😉.

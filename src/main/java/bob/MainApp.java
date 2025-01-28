@@ -2,7 +2,7 @@ package bob;
 
 import bob.ui.DialogBox;
 import bob.ui.MainWindow;
-import bob.ui.Ui;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
