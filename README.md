@@ -12,7 +12,7 @@ Bob frees your mind from the burden of remembering tasks. It’s:
 
 ## How to Get Started
 
-1.  Download Bob from [here](https://github.com/javentankangle/ip/releases/download/v0.2/bob.jar).
+1.  Download Bob from [here](https://github.com/zyonwee/ip/releases/download/v0.2/bob.jar).
 2.  Double-click the executable file.
 3.  Add your tasks using simple commands.
 4.  Let Bob manage your tasks for you 😉.
@@ -54,10 +54,10 @@ delete 1
 find cry
 
 // Lists all tasks
-list
+list  
 
 // Exit application
-        exit
+exit
 ```
 # Acknowledgements
 
