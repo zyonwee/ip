@@ -9,7 +9,7 @@ public class Bob {
     static String greetMsg = "Hello! I'm " + fullName + "\n" +
             "What can I do for you?\n" ; // Greeting Message
     static String exitMsg =  "Bye. Please don't trouble me again!\n"; // Exit Message
-    static boolean listenMode = true; // Check if Bot should continue to listen for commands
+    static boolean isListen = true; // Check if Bot should continue to listen for commands
     static List<Task> taskList = new ArrayList<>(); // List of user inputs
 
     /**
@@ -27,7 +27,7 @@ public class Bob {
      */
     public static void handleCommand() {
         Scanner sc = new Scanner(System.in);  // Create a Scanner object
-        while (listenMode && sc.hasNextLine()) {
+        while (isListen && sc.hasNextLine()) {
             try {
                 String command = sc.nextLine();  // Read user input
 
@@ -36,7 +36,7 @@ public class Bob {
 
                 switch (type) {
                     case EXIT:
-                        listenMode = false;
+                        isListen = false;
                         break;
                     case LIST:
                         listCommands();
