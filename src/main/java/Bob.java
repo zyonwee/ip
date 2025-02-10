@@ -182,9 +182,10 @@ public class Bob {
      * Adds Todo task to TaskList
      * @param desc of ToDo Task
      */
-    public static void addToDo(String desc) {
+    public static void addToDo(String desc) throws BobException {
         Task task = new ToDo(desc);
         taskList.add(task);
+        task.saveTask();
         System.out.println("No deadline? I guess we are never doing this then...");
 
     }

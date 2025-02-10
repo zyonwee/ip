@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class Task {
     protected String description;
     protected boolean isDone; // State of Task
@@ -25,6 +27,14 @@ public class Task {
     public Task unmarkAsDone(){
         this.isDone = false;
         return this;
+    }
+
+
+    /**
+     * Sets a task as done
+     */
+    public void saveTask() throws  BobException{
+            BobFileManager.writeToFile(this.toString());
     }
 
     /**
