@@ -84,7 +84,7 @@ public class Bob {
                             String byString = cleanString.substring(byIndex + 3);
                             addDeadline(description, byString);
                         } catch (Exception e) {
-                            System.out.println("Did you forget your '/by' command? So un-attentive!");
+                            System.out.println("Did you forget your '/by' command? So un-attentive!" + e.toString());
                         }
                         break;
                     case EVENT:
