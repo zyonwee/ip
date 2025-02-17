@@ -1,5 +1,6 @@
 package bob.parser;
 
+// importing all because Parser requires over 6 packages in bob.commands
 import bob.commands.*;
 import bob.exceptions.BobException;
 
