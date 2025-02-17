@@ -1,18 +1,15 @@
-/**
- * ToDo has only description
- */
 public class ToDo extends Task {
-
     public ToDo(String description) {
         super(description);
     }
 
-    /**
-     *
-     * @return String of 'ToDo[T] description'
-     */
     @Override
     public String toString() {
-        return "[T] [" + this.getStatusIcon() + "] " + super.toString();
+        return "[T] " + super.toString();
+    }
+
+    @Override
+    public String toFileString() {
+        return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 }

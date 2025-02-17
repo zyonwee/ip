@@ -1,23 +1,18 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 public class Deadline extends Task {
-
-    protected String by;
-    protected LocalDate byDate;
-
+    private final String by;
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = by;
-        this.byDate = DateUtils.checkIsDate(by);
-        if (byDate != null){
-            this.by = DateUtils.formatDate(this.byDate);
-        }
+        this.by = DateUtils.processDate(by);
     }
 
     @Override
     public String toString() {
-        return "[D] [" + this.getStatusIcon() + "] " + super.toString() + " ( by: " + by + " )";
+        return "[D] " + super.toString() + " (by: " + by + ")";
+    }
+
+    @Override
+    public String toFileString() {
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + DateUtils.getFileString(by);
     }
 }

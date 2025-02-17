@@ -1,38 +1,45 @@
+// DateUtils.java
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.time.format.DateTimeFormatter;
 
 public class DateUtils {
-    private final static DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter FILE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter DISPLAY_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
     /**
-     * Checks if input is type LocalDate and returns the formatted date if valid.
-     * @param s The string to check
-     * @return Formatted date as a string (e.g., "Oct 15 2019") if the input is a valid LocalDate
+     * Takes a string that might be a date and returns either:
+     * - A formatted date string if the input is a valid date
+     * - The original string if it's not a valid date
+     * @param input The string to process
+     * @return Formatted date string or original string
      */
-    public static LocalDate checkIsDate(String s) {
-        if (s == null) {
+    public static String processDate(String input) {
+        if (input == null) {
             return null;
         }
-        String res = s.trim();
         try {
-            return LocalDate.parse(res, inputFormat);
+            LocalDate date = LocalDate.parse(input.trim(), FILE_FORMAT);
+            return date.format(DISPLAY_FORMAT);
         } catch (DateTimeParseException e) {
-            System.out.println(e.toString() + "\n" + res);
-            return null;
+            return input;
         }
     }
 
     /**
-     * Formats a LocalDate to the desired output format.
-     * @param date The LocalDate to format
-     * @return A string representing the date in the format "MMM dd yyyy" (e.g., "Oct 15 2019")
+     * Gets the file format string for a date. Returns the original string if not a valid date.
+     * @param input The string to process
+     * @return Date in file format or original string
      */
-    public static String formatDate(LocalDate date) {
-        if (date == null) {
+    public static String getFileString(String input) {
+        if (input == null) {
             return null;
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        return date.format(formatter);
+        try {
+            LocalDate date = LocalDate.parse(input.trim(), FILE_FORMAT);
+            return date.format(FILE_FORMAT);
+        } catch (DateTimeParseException e) {
+            return input;
+        }
     }
 }
