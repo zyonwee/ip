@@ -7,10 +7,20 @@ import bob.tasks.Deadline;
 import bob.tasks.Task;
 import bob.tasks.TaskList;
 
+/**
+ * Represents a command to add a deadline task.
+ */
 public class AddDeadlineCommand extends Command {
     private final String description;
     private final String by;
 
+    /**
+     * Constructs an AddDeadlineCommand object.
+     * Parses the command arguments to extract the description and deadline.
+     *
+     * @param arguments The command arguments string.  Expected format: "deadline <description> /by <time>"
+     * @throws BobException If the arguments are invalid or missing.
+     */
     public AddDeadlineCommand(String arguments) throws BobException {
         try {
             String[] parts = arguments.split(" /by ");
@@ -24,12 +34,21 @@ public class AddDeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Executes the add deadline command.
+     * Creates a new Deadline task, adds it to the task list, saves the updated list, and displays a message.
+     *
+     * @param tasks   The task list.
+     * @param ui      The user interface.
+     * @param storage The storage handler.
+     * @throws BobException If an error occurs during execution (e.g., saving the task list).
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BobException {
         Task task = new Deadline(description, by);
-        TaskList.add(task);
+        TaskList.add(task); // Assuming TaskList.add is a static method
         storage.save(tasks);
         ui.showLine();
-        System.out.println("You better remember to do it or I'll spank you");
+        System.out.println("You better remember to do it or I'll spank you"); // Consider a more professional message
     }
 }
