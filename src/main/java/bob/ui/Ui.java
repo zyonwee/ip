@@ -33,7 +33,10 @@ public class Ui {
             System.out.println("You didn't tell me what to do yet");
             return;
         }
-        System.out.println("Woah woah woah,\nlet me get this straight... You want me to :\n");
+        System.out.println("""
+                Woah woah woah,
+                let me get this straight... You want me to :
+                """);
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + ". " + tasks.get(i));
         }
