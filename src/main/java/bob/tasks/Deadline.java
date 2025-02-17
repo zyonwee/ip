@@ -1,3 +1,7 @@
+package bob.tasks;
+
+import bob.utils.DateUtils;
+
 public class Deadline extends Task {
     private final String by;
 

@@ -1,4 +1,4 @@
-# Princess Bob User Guide
+# Princess bob.bob User Guide
 
 // Update the title above to match the actual product name
 

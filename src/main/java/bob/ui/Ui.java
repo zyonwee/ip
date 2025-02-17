@@ -1,10 +1,14 @@
+package bob.ui;
+
+import bob.tasks.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
     private static final String LINE = "____________________________________________________________";
 
     public void showWelcome() {
-        System.out.println("Hello! I'm Bob the Princess\nWhat can I do for you?\n");
+        System.out.println("Hello! I'm Bob.Bob the Princess\nWhat can I do for you?\n");
     }
 
     public void showGoodbye() {

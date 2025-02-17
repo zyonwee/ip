@@ -1,3 +1,11 @@
+package bob.commands;
+
+import bob.exceptions.BobException;
+import bob.storage.Storage;
+import bob.ui.Ui;
+import bob.tasks.Task;
+import bob.tasks.TaskList;
+
 public class UnmarkCommand extends Command {
     private final int index;
 
@@ -12,7 +20,7 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws BobException {
         if (index < 0 || index >= tasks.size()) {
-            throw new BobException("Task does not exist. Please provide a valid task number.");
+            throw new BobException("Bob.Task does not exist. Please provide a valid task number.");
         }
         Task task = tasks.get(index).unmarkAsDone();
         ui.showLine();

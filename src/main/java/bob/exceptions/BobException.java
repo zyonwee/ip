@@ -1,3 +1,5 @@
+package bob.exceptions;
+
 public class BobException extends Exception {
     // Parameterless Constructor
     public BobException() {}

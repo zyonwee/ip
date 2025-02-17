@@ -1,3 +1,5 @@
+package bob.commands;
+
 public enum CommandType {
     EXIT("bye"),
     LIST("list"),

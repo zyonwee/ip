@@ -1,3 +1,9 @@
+package bob.storage;
+
+import bob.exceptions.BobException;
+import bob.tasks.Task;
+import bob.tasks.TaskList;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

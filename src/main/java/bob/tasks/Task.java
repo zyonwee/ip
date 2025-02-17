@@ -1,6 +1,10 @@
+package bob.tasks;
+
+import bob.exceptions.BobException;
+
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
+    public final String description;
+    public boolean isDone;
 
     public Task(String description) {
         this.description = description;
@@ -34,10 +38,10 @@ public abstract class Task {
     public abstract String toFileString();
 
     /**
-     * Parses a string representation of a task and returns the corresponding Task object.
+     * Parses a string representation of a task and returns the corresponding Bob.Task object.
      *
      * @param taskString The string representation of the task.
-     * @return The Task object.
+     * @return The Bob.Task object.
      * @throws BobException If the task string is invalid.
      */
     public static Task fromString(String taskString) throws BobException {
@@ -50,26 +54,22 @@ public abstract class Task {
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
-        Task task;
-        switch (type) {
-            case "T":
-                task = new ToDo(description);
-                break;
-            case "D":
+        Task task = switch (type) {
+            case "T" -> new ToDo(description);
+            case "D" -> {
                 if (parts.length < 4) {
                     throw new BobException("Invalid deadline format in file.");
                 }
-                task = new Deadline(description, parts[3]);
-                break;
-            case "E":
+                yield new Deadline(description, parts[3]);
+            }
+            case "E" -> {
                 if (parts.length < 5) {
                     throw new BobException("Invalid event format in file.");
                 }
-                task = new Event(description, parts[3], parts[4]);
-                break;
-            default:
-                throw new BobException("Unknown task type in file.");
-        }
+                yield new Event(description, parts[3], parts[4]);
+            }
+            default -> throw new BobException("Unknown task type in file.");
+        };
 
         if (isDone) {
             task.markAsDone();

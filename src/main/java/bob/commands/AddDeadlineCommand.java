@@ -1,3 +1,12 @@
+package bob.commands;
+
+import bob.exceptions.BobException;
+import bob.storage.Storage;
+import bob.ui.Ui;
+import bob.tasks.Deadline;
+import bob.tasks.Task;
+import bob.tasks.TaskList;
+
 public class AddDeadlineCommand extends Command {
     private final String description;
     private final String by;

@@ -1,3 +1,12 @@
+package bob.commands;
+
+import bob.exceptions.BobException;
+import bob.storage.Storage;
+import bob.ui.Ui;
+import bob.tasks.Event;
+import bob.tasks.Task;
+import bob.tasks.TaskList;
+
 public class AddEventCommand extends Command {
     private final String description;
     private final String from;
