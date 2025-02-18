@@ -33,14 +33,15 @@ public class AddTodoCommand extends Command {
      * @param tasks   The task list.
      * @param ui      The user interface.
      * @param storage The storage handler.
+     * @return
      * @throws BobException If an error occurs during execution (e.g., saving the task list).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BobException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BobException {
         Task task = new ToDo(description);
         TaskList.add(task); // Assuming TaskList.add is a static method
         storage.save(tasks);
-        ui.showLine();
-        System.out.println("No deadline? I guess we are never doing this then..."); // Consider a more professional message
+        Ui.appendResponse("No deadline? I guess we are never doing this then..."); // Consider a more professional message
+        return null;
     }
 }

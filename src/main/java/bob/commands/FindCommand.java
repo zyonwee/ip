@@ -35,9 +35,10 @@ public class FindCommand extends Command {
      * @param tasks   The task list.
      * @param ui      The user interface.
      * @param storage The storage handler (not used by this command).
+     * @return
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks.getTasks()) { // Use getTasks() to get a copy
             if (task.description.toLowerCase().contains(keyword.toLowerCase())) { // Case-insensitive search
@@ -45,15 +46,14 @@ public class FindCommand extends Command {
             }
         }
 
-        ui.showLine();
         if (matchingTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
+            Ui.appendResponse("No matching tasks found.");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            Ui.appendResponse("Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println((i + 1) + ". " + matchingTasks.get(i));
+                Ui.appendResponse((i + 1) + ". " + matchingTasks.get(i));
             }
         }
-        ui.showLine();
+         return null;
     }
 }
