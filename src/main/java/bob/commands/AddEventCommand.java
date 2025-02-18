@@ -44,14 +44,15 @@ public class AddEventCommand extends Command {
      * @param tasks   The task list.
      * @param ui      The user interface.
      * @param storage The storage handler.
+     * @return
      * @throws BobException If an error occurs during execution (e.g., saving the task list).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BobException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws BobException {
         Task task = new Event(description, from, to);
         TaskList.add(task); // Assuming TaskList.add is a static method
         storage.save(tasks);
-        ui.showLine();
-        System.out.println("Am I invited? Nah... no one cares bout this damsel"); // Consider a more professional message
+        Ui.appendResponse("Am I invited? Nah... no one cares bout this damsel"); // Consider a more professional message
+        return null;
     }
 }

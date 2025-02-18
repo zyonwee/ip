@@ -5,6 +5,7 @@ import bob.exceptions.BobException;
 import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.tasks.TaskList;
+import bob.ui.DialogBox;
 import bob.ui.Ui;
 
 /**
@@ -27,40 +28,35 @@ public class Bob {
         try {
             tasks = new TaskList(storage.load());
         } catch (BobException e) {
-            ui.showError(e.getMessage());
+            DialogBox.getBobDialog(e.getMessage());
             tasks = new TaskList(); // Initialize to an empty list if loading fails
         }
     }
 
-    /**
-     * Runs the Bob application.
-     * Displays the welcome message, reads and processes commands from the user until the exit command is given.
-     * Handles potential BobExceptions during command execution.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (BobException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine(); // Show line after each command (including errors)
-            }
-        }
-    }
+    //@@author {Wang Haitao iP}-reused
+    public String getResponse(String input) {
+        try {
+            Command c = Parser.parse(input);
+            StringBuilder response = new StringBuilder();
 
-    /**
-     * Main method to start the Bob application.
-     *
-     * @param args Command line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Bob("data/bobTasks.txt").run(); // Consider making the file path configurable
+            // Capture the response instead of printing to console
+            ui.captureResponse(() -> {
+                try {
+                    c.execute(tasks, ui, storage);
+                } catch (BobException e) {
+                    DialogBox.getBobDialog(e.getMessage());
+                }
+            }, response);
+
+            if (c.isExit()) {
+                System.exit(0);
+            }
+         return response.toString();
+    } catch (BobException e) {
+        return "OOPS!!! " + e.getMessage();
     }
+}
+
+
+
 }
