@@ -41,11 +41,23 @@ deadline Submit report /by 2023-12-31
 // Add an event task
 event Team meeting /from 2023-10-01 /to 2023-10-02
 
-// Mark a task as done
+// Mark task No. 1 as done
 mark 1
 
-// Delete a task
-delete 2
+// Unmark task No. 1
+unmark 1
+
+// Delete task No. 1
+delete 1
+
+// Find a task called 'Cry'
+find cry
+
+// Lists all tasks
+list  
+
+// Exit application
+exit
 ```
 # Acknowledgements
 
