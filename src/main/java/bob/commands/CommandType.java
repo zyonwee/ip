@@ -1,48 +1,20 @@
 package bob.commands;
 
+import java.util.Arrays;
+
 /**
  * Enum representing the different types of commands.
  */
 public enum CommandType {
-    /**
-     * Represents the exit command.
-     */
     EXIT("bye"),
-    /**
-     * Represents the list command.
-     */
     LIST("list"),
-    /**
-     * Represents the mark command.
-     */
     MARK("mark"),
-    /**
-     * Represents the unmark command.
-     */
     UNMARK("unmark"),
-    /**
-     * Represents the todo command.
-     */
     TODO("todo"),
-    /**
-     * Represents the deadline command.
-     */
     DEADLINE("deadline"),
-    /**
-     * Represents the event command.
-     */
     EVENT("event"),
-    /**
-     * Represents the delete command.
-     */
     DELETE("delete"),
-    /**
-     * Represents an invalid command.
-     */
     INVALID("invalid"),
-    /**
-     * Represents an find command.
-     */
     FIND("find");
 
     private final String commandString;
@@ -58,16 +30,18 @@ public enum CommandType {
      * @return The corresponding CommandType, or INVALID if no match is found.
      */
     public static CommandType fromString(String command) {
-        String[] parts = command.split("\\s+"); // Split by whitespace
-        if (parts.length > 0) {
-            String firstWord = parts[0];
-            for (CommandType type : CommandType.values()) {
-                if (type.commandString.equals(firstWord)) {
-                    return type;
-                }
-            }
+        if (command == null || command.isEmpty()) {
+            return INVALID;
         }
-        return INVALID;
+
+        return Arrays.stream(command.split("\\s+"))
+                .findFirst()
+                .map(String::trim)
+                .map(firstWord -> Arrays.stream(CommandType.values())
+                        .filter(type -> type.commandString.equals(firstWord))
+                        .findFirst()
+                        .orElse(INVALID))
+                .orElse(INVALID);
     }
 
     /**
@@ -77,5 +51,4 @@ public enum CommandType {
     public String getCommandString() {
         return commandString;
     }
-
 }
