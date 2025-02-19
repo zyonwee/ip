@@ -1,30 +1,58 @@
-# Princess bob.bob User Guide
+# Bob: Your Personal Task Manager 🚀
+![alt text](https://github.com/zyonwee/iP/blob/master/src/main/resources/images/user.png?raw=true)
+Bob is a lightweight, text-based task manager designed to help you organize your tasks efficiently. Inspired by the quote:
 
-// Update the title above to match the actual product name
+> “Your mind is for having ideas, not holding them.” – [David Allen](https://gettingthingsdone.com/)
 
-// Product screenshot goes here
+Bob frees your mind from the burden of remembering tasks. It’s:
 
-// Product intro goes here
+*   Text-based: Simple and intuitive.
+*   Easy to learn: No steep learning curve.
+*   **FAST SUPER FAST** to use: Get things done in seconds.
 
-## Adding deadlines
+## How to Get Started
 
-// Describe the action and its outcome.
+1.  Download Bob from [here](https://github.com/zyonwee/ip).
+2.  Double-click the executable file.
+3.  Add your tasks using simple commands.
+4.  Let Bob manage your tasks for you 😉.
 
-// Give examples of usage
+And the best part? It’s FREE! 🎉
 
-Example: `keyword (optional arguments)`
+## Features
 
-// A description of the expected outcome goes here
+-   Add tasks with deadlines, events, or todos.
+-   Mark tasks as done or undone.
+-   Delete tasks you no longer need.
+-   Save and load tasks automatically.
+-   ~~Sync tasks across devices~~ (coming soon!).
 
+## Example Usage
+
+Here’s how you can use Bob:
+
+```java
+// Add a todo task
+todo Buy groceries
+
+// Add a deadline task
+deadline Submit report /by 2023-12-31
+
+// Add an event task
+event Team meeting /from 2023-10-01 /to 2023-10-02
+
+// Mark a task as done
+mark 1
+
+// Delete a task
+delete 2
 ```
-expected output
-```
+# Acknowledgements
 
-## Feature ABC
+This project incorporates code and/or ideas from the following sources:
 
-// Feature details
+*   **Code Reuse:**  The `DialogBox` `MainWindow` classes is adapted from work by Wang Haitao iP. 
 
+*   **AI Assistance:** Gemini and DeepSeek were used for generating initial drafts of Javadoc documentation.
 
-## Feature XYZ
-
-// Feature details
+![alt text](https://github.com/zyonwee/iP/blob/master/docs/Ui.png?raw=true)
