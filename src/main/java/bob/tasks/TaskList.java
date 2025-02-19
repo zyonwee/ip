@@ -1,6 +1,7 @@
 package bob.tasks;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -80,6 +81,15 @@ public class TaskList {
      */
     public List<Task> getTasks() {
         return new ArrayList<>(tasks); // Return a copy to prevent external modification
+    }
+
+    /**
+     * Adds multiple tasks to the task list.
+     *
+     * @param tasks The tasks to add.
+     */
+    public static void add(Task... tasks) {  // Varargs here
+        Collections.addAll(TaskList.tasks, tasks);
     }
 
     /**
