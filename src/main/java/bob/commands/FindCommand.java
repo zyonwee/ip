@@ -32,10 +32,10 @@ public class FindCommand extends Command {
      * Executes the find command.
      * Searches the task list for tasks containing the keyword and displays the matching tasks.
      *
-     * @param tasks   The task list to search within.
-     * @param ui      The user interface to display results.
+     * @param tasks   The task list.
+     * @param ui      The user interface.
      * @param storage The storage handler (not used by this command).
-     * @return A string representation of the command's execution result, or null if none.
+     * @return
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
@@ -47,13 +47,13 @@ public class FindCommand extends Command {
         }
 
         if (matchingTasks.isEmpty()) {
-            Ui.appendResponse("No matching tasks found."); // Use ui.appendResponse consistently
+            Ui.appendResponse("No matching tasks found.");
         } else {
             Ui.appendResponse("Here are the matching tasks in your list:");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                Ui.appendResponse((i + 1) + ". " + matchingTasks.get(i)); // Use ui.appendResponse consistently
+                Ui.appendResponse((i + 1) + ". " + matchingTasks.get(i));
             }
         }
-        return null; // Or return a string result if needed
+         return null;
     }
 }
