@@ -1,3 +1,6 @@
+![alt text](https://github.com/zyonwee/iP/blob/master/src/main/resources/images/user.png?raw=true)
+
+
 # Bob: Your Personal Task Manager 🚀
 
 Bob is a lightweight, text-based task manager designed to help you organize your tasks efficiently. Inspired by the quote:
@@ -46,3 +49,12 @@ mark 1
 
 // Delete a task
 delete 2
+```
+
+# Acknowledgements
+
+This project incorporates code and/or ideas from the following sources:
+
+*   **Code Reuse:**  Portions of the code in this project are reused or adapted from work by Wang Haitao iP.  Their contributions are gratefully acknowledged.
+
+*   **AI Assistance:**  The development of this project benefited from the use of AI tools, including Gemini and DeepSeek. These tools assisted with [mention specific areas where AI was used, e.g., code generation, documentation, testing, etc.].  While these tools played a valuable role, the final implementation and responsibility for the code rests with the project developers.
