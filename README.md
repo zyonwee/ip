@@ -46,3 +46,11 @@ mark 1
 
 // Delete a task
 delete 2
+```
+# Acknowledgements
+
+This project incorporates code and/or ideas from the following sources:
+
+*   **Code Reuse:**  The `DialogBox` class is adapted from work by Wang Haitao iP.  This code is used under the [License Name] license.  A copy of this license can be found in [LICENSE file path].
+
+*   **AI Assistance:** Gemini and DeepSeek were used for generating initial drafts of Javadoc documentation.
