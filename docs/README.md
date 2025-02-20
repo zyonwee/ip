@@ -55,16 +55,23 @@ delete 1
 find cry
 
 // Lists all tasks
-list  
+list
 
 // Exit application
-exit
+        exit
 ```
+
+- [x] Sassy Personality
+- [x] GUI
+- [x] Tests
+- [x] Full set of Commands
+- [x] Responsiveness
+
 # Acknowledgements
 
 This project incorporates code and/or ideas from the following sources:
 
-*   **Code Reuse:**  The `DialogBox` `MainWindow` classes is adapted from work by Wang Haitao iP. 
+*   **Code Reuse:**  The `DialogBox` `MainWindow` classes is adapted from work by Wang Haitao iP.
 
 *   **AI Assistance:** Gemini and DeepSeek were used for generating initial drafts of Javadoc documentation.
 

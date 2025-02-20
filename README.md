@@ -60,6 +60,13 @@ list
 // Exit application
 exit
 ```
+
+- [x] Sassy Personality
+- [x] GUI
+- [x] Tests
+- [x] Full set of Commands
+- [x] Responsiveness
+
 # Acknowledgements
 
 This project incorporates code and/or ideas from the following sources:
