@@ -54,7 +54,6 @@ application {
 
 shadowJar {
     archiveBaseName = "bob"
-    archiveFileName = 'bob.jar'
     archiveClassifier = null
 }
 

@@ -4,7 +4,6 @@ import bob.exceptions.BobException;
 import bob.tasks.Task;
 import bob.tasks.TaskList;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -18,19 +17,19 @@ import java.util.stream.Collectors;
  * Handles loading and saving tasks to a file.
  */
 public class Storage {
-    private final Path filePath; // Use Path instead of String
+    private final Path filePath;
 
     /**
      * Constructs a Storage object with the specified file path.
      *
      * @param filePath The path to the file where tasks are stored.
-     * @throws IllegalArgumentException if the file path is null or empty.
+     * @throws BobException if the file path is null or empty.
      */
-    public Storage(String filePath) {
+    public Storage(String filePath) throws BobException {
         if (filePath == null || filePath.isBlank()) {
-            throw new IllegalArgumentException("File path cannot be null or empty");
+            throw new BobException("File path cannot be null or empty");
         }
-        this.filePath = Path.of(filePath); // Initialize as a Path
+        this.filePath = Path.of(filePath);
     }
 
     /**
@@ -55,16 +54,15 @@ public class Storage {
                     })
                     .collect(Collectors.toList());
         } catch (IOException e) {
-            throw new BobException("Error loading tasks from file: " + e.getMessage(), e); // Include original exception
-        } catch (RuntimeException re) { // Catch the RuntimeException
+            throw new BobException("Error loading tasks from file: " + e.getMessage(), e);
+        } catch (RuntimeException re) {
             if (re.getCause() instanceof BobException) {
-                throw (BobException) re.getCause(); // Unwrap and rethrow the BobException
+                throw (BobException) re.getCause();
             } else {
-                throw new BobException("Error loading tasks: " + re.getMessage(), re); // Or wrap in a new BobException
+                throw new BobException("Error loading tasks: " + re.getMessage(), re);
             }
         }
     }
-
 
     /**
      * Saves the tasks to the file.
@@ -74,25 +72,42 @@ public class Storage {
      */
     public void save(TaskList tasks) throws BobException {
         if (tasks == null) {
-            throw new IllegalArgumentException("Task list cannot be null");
+            throw new BobException("Task list cannot be null");
         }
 
         try {
             List<String> lines = tasks.getTasks().stream()
                     .map(task -> {
-                        if (task == null) {
-                            throw new IllegalArgumentException("Task in list cannot be null");
+                        try {
+                            if (task == null) {
+                                throw new BobException("Task in list cannot be null");
+                            }
+                            return task.toFileString();
+                        } catch (BobException e) {
+                            throw new RuntimeException(e); // Wrap in RuntimeException
                         }
-                        return task.toFileString();
                     })
                     .collect(Collectors.toList());
+
+            Path parentDir = filePath.getParent();
+            if (parentDir != null && !Files.exists(parentDir)) {
+                try {
+                    Files.createDirectories(parentDir);
+                } catch (IOException e) {
+                    throw new BobException("Failed to create parent directories: " + e.getMessage(), e);
+                }
+            }
 
             Files.write(filePath, lines, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
         } catch (IOException e) {
-            throw new BobException("Error saving tasks to file: " + e.getMessage(), e); // Include original exception
-        } catch (IllegalArgumentException iae) {
-            throw new BobException("Error saving tasks: " + iae.getMessage(), iae);
+            throw new BobException("Error saving tasks to file: " + e.getMessage(), e);
+        } catch (RuntimeException re) {  // Catch RuntimeException from the map operation
+            if (re.getCause() instanceof BobException) {
+                throw (BobException) re.getCause(); // Unwrap and rethrow the BobException
+            } else {
+                throw new BobException("Error saving tasks: " + re.getMessage(), re); // Wrap other RuntimeExceptions
+            }
         }
     }
 }

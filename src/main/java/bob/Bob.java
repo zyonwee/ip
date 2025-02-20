@@ -12,7 +12,7 @@ import bob.ui.Ui;
  * The main class for the Bob application.
  */
 public class Bob {
-    private final Storage storage;
+    private Storage storage;
     private TaskList tasks;
     private final Ui ui;
 
@@ -24,8 +24,8 @@ public class Bob {
      */
     public Bob(String filePath) {
         ui = new Ui();
-        storage = new Storage(filePath);
         try {
+            storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
         } catch (BobException e) {
             DialogBox.getBobDialog(e.getMessage());
@@ -44,7 +44,7 @@ public class Bob {
                 try {
                     c.execute(tasks, ui, storage);
                 } catch (BobException e) {
-                    DialogBox.getBobDialog(e.getMessage());
+                    Ui.appendResponse(e.getMessage());
                 }
             }, response);
 
