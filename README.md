@@ -58,7 +58,7 @@ find cry
 list  
 
 // Exit application
-exit
+bye
 ```
 
 - [x] Sassy Personality
